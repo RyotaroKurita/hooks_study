@@ -1,3 +1,6 @@
+# ローカルでの実行
+npm startで始めることができます。
+# 以下は公式のドキュメント
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
