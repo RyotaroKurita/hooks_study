@@ -5,14 +5,15 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 // 大文字でないとエラー
 import SearchCallback from './component/callbackComponent';
-
+import CheckUseMemo from './component/useMemo';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
-    <SearchCallback />
+    {/* <App /> */}
+    {/* <SearchCallback /> */}
+    <CheckUseMemo />
   </React.StrictMode>
 );
 
