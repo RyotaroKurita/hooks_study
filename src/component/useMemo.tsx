@@ -11,10 +11,11 @@ type Bank = {
   bankCode: string;
 };
 
+//実際はAPI（バックエンド側）から取得する
 const allBanks: Bank[] = [
   { bankName: "三菱UFJ銀行", bankCode: "0005" },
   { bankName: "三井住友銀行", bankCode: "0009" },
-  { bankName: "みずほ銀行", bankCode: "0010" },
+  { bankName: "mizuho", bankCode: "0010" },
   { bankName: "埼玉りそな銀行", bankCode: "0011" },
   { bankName: "三井住友信託銀行", bankCode: "0012" },
   { bankName: "りそな銀行", bankCode: "0013" }
@@ -31,6 +32,13 @@ function Search({ onChange }: { onChange: (text: string) => void }) {
   )
 }
 
+//動的に値を返却しない場合のみにuseMemoを使用する
+//値を受け取って画面表示の場合を減らす
+//NUllが渡る場合があるため、undefinedを許容する
+function AddString(text: string | undefined) {
+  return text + "test";
+}
+
 //入力値と銀行リストを受け取る
 //処理本体
 export default function CheckUseMemo() {
@@ -38,26 +46,30 @@ export default function CheckUseMemo() {
   const [bank, setBank] = useState<Bank | null>(null);
 
   //useMemoを使用したサンプルコードを作成
-  const handleSearch = useMemo(() => (text: string) => {
+  const handleSearch = useCallback((text: string) => {
     const targetBank = allBanks.find((bank) => {
       return bank.bankName.includes(text);
     });
 
     setBank(targetBank || null);
     setRenderCnt(renderCnt + 1);
-    return targetBank;
   }, []);
 
-  //useMemoを使用しない場合
-  const handleSearchWithoutMemo = (text: string) => {
-    const targetBank = allBanks.find((bank) => {
-      return bank.bankName.includes(text);
-    });
+  const memoString = useMemo(() => {
+    AddString(bank?.bankName);
+    console.log("memoString");
+  }, [bank]);
 
-    setBank(targetBank || null);
-    setRenderCntWithoutMemo(renderCntWithoutMemo + 1);
-    return targetBank;
-  };
+  //useMemoを使用しない場合
+  // const handleSearchWithoutMemo = (text: string) => {
+  //   const targetBank = allBanks.find((bank) => {
+  //     return bank.bankName.includes(text);
+  //   });
+
+  //   setBank(targetBank || null);
+  //   setRenderCntWithoutMemo(renderCntWithoutMemo + 1);
+  //   return targetBank;
+  // };
 
   //レンダリングカウント用
   const [renderCnt, setRenderCnt] = useState<number>(0);
@@ -75,18 +87,21 @@ export default function CheckUseMemo() {
 
       <div>
         {/* useMemoありとなしのHTMLを分けて表示 */}
-        <h2>useMemoあり</h2>
-        <p>対象のコードが返却されます。</p>
-        <Search onChange={handleSearch} />
+        {memoString}
         {bank ? (
           <p>{bank.bankName}のコードは{bank.bankCode}です</p>
         ) : (
           <p>該当する銀行はありません</p>
         )};
+
+        <h2>useMemoあり</h2>
+        <p>対象のコードが返却されます。</p>
+        <Search onChange={handleSearch} />
+
         <p>レンダリング回数：{renderCnt}</p>
       </div>
 
-      <div>
+      {/* <div>
         <h2>useMemoなし</h2>
         <Search onChange={handleSearchWithoutMemo} />
         {bank ? (
@@ -95,7 +110,7 @@ export default function CheckUseMemo() {
           <p>該当する銀行はありません</p>
         )};
         <p>レンダリング回数：{renderCntWithoutMemo}</p>
-      </div>
+      </div> */}
     </div>
   )
 }
