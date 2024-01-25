@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 // 大文字でないとエラー
 import SearchCallback from './component/callbackComponent';
 import CheckUseMemo from './component/useMemo';
+import CheckEffect from './component/useEffect';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
@@ -13,7 +14,8 @@ root.render(
   <React.StrictMode>
     {/* <App /> */}
     {/* <SearchCallback /> */}
-    <CheckUseMemo />
+    {/* <CheckUseMemo /> */}
+    <CheckEffect />
   </React.StrictMode>
 );
 

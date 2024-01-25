@@ -85,8 +85,7 @@ export default function CheckUseMemo() {
         ))}
       </ul>
 
-      <div>
-        {/* useMemoありとなしのHTMLを分けて表示 */}
+      <>
         {memoString}
         {bank ? (
           <p>{bank.bankName}のコードは{bank.bankCode}です</p>
@@ -99,7 +98,7 @@ export default function CheckUseMemo() {
         <Search onChange={handleSearch} />
 
         <p>レンダリング回数：{renderCnt}</p>
-      </div>
+      </>
 
       {/* <div>
         <h2>useMemoなし</h2>
