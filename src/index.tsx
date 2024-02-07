@@ -7,6 +7,8 @@ import reportWebVitals from './reportWebVitals';
 import SearchCallback from './component/callbackComponent';
 import CheckUseMemo from './component/useMemo';
 import CheckEffect from './component/useEffect';
+import CheckContext from './component/useContext';;
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
@@ -15,7 +17,8 @@ root.render(
     {/* <App /> */}
     {/* <SearchCallback /> */}
     {/* <CheckUseMemo /> */}
-    <CheckEffect />
+    {/* <CheckEffect /> */}
+    <CheckContext />
   </React.StrictMode>
 );
 

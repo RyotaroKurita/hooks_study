@@ -16,6 +16,10 @@ export default function CheckUseEffect() {
     console.log("第二引数cnt");
   }, [cnt])
 
+  // useEffect(() => {
+  //   post('/analytics/event', { eventName: 'visit_form' });
+  // }, []);
+
   const cntup = () => {
     setCnt(cnt + 1);
   }
